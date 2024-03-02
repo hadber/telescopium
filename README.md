@@ -26,3 +26,8 @@ In order to install dearpygui on a raspberrypi, please refer to the following gu
 https://github.com/hoffstadt/DearPyGui/issues/1741
 
 It should, eventually, be supported on a pi out of the box - but, until then, please check out the aformentioned link
+
+
+Make sure of the following two things: 
+- in raspi-config, camera legacy support is disabled
+- also in raspi-config, under advanced options -> GL Driver that you have G1 Legacy enabled.
