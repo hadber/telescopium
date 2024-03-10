@@ -41,11 +41,11 @@ if not args.guionly:
 	cam_data =	picam2.capture_array()
 	print(np.shape(cam_data))
 
-with dpg.texture_registry(show=True):
+with dpg.texture_registry(show=False):
 	dpg.add_raw_texture(width=320, height=240, default_value=raw_data, format=dpg.mvFormat_Float_rgba, tag="Camera texture")
 
 with dpg.window(tag="Camera window"):
-	dpg.add_image(texture_tag="Camera texture", tag="Camera image")#, show=False)
+	dpg.add_image(texture_tag="Camera texture", tag="Camera image", show=False)
 	dpg.add_loading_indicator(tag="Loading", radius=30)
 
 dpg.create_viewport(title='telescopium')
