@@ -52,6 +52,9 @@ def get_enum_options(some_control):
     
 def get_camera_control_type(name):
 	
+	# there is currently a problem with NoiseReductionMode 
+	# which is actually set from draft.NoiseReductionModeEnum
+	# TODO: add an exception for it or simply ignore it.
 	if not name in get_available_controls():
 		return Type.NONE
 
