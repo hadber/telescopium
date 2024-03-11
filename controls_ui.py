@@ -1,18 +1,21 @@
 import dearpygui.dearpygui as dpg
 import camera_controls as camc
+from libcamera import controls
 
-enum_list, defaults_list = camc.get_modifiable_controls()
+enum_list, defaults_list = camc.get_all_modifiable_controls()
 
-def create_enum_controls_ui_elements(some_parent):
-    for enum in enum_list:
-        enum_options = camc.get_enum_options(enum)
-        dpg.add_combo(items=enum_options, label=enum, parent=some_parent)
+def create_enum_control_ui(name, some_parent, default_id):
+	enum_options = camc.get_enum_options(name)
+	dpg.add_combo(items=enum_options, default_value=enum_options[default_id], label=name, parent=some_parent)
+
+def create_controls_ui_for_camera(camera, parent_window):
+
+	# values are as follows: [minimum, maximum, default]
+	for name, values in camera.camera_controls.items():
+		print(f"Creating UI element for: {name}")
+		control_type = camc.get_camera_control_type(name)
+
+		if control_type == camc.Type.ENUM:
+			create_enum_control_ui(name, parent_window, values[2])
 
 
-def create_controls_window(root):
-    with dpg.window(tag="Controls window", parent=root) as controls_window:
-        create_enum_controls_ui_elements(controls_window)
-
-
-def add_camera_control_ui_element(some_parent):
-    return dpg.add_slider_int(label="This is a test", parent=some_parent)

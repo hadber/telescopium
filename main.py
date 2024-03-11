@@ -70,18 +70,19 @@ with dpg.theme() as global_theme:
 dpg.bind_theme(global_theme)
 
 if not args.guionly:
-    import camera_controls as camc
-    import controls_ui as cui
-    enum_control_list, defaults = camc.get_modifiable_controls()
-   
-    with dpg.window(tag="Controls window") as controls_window:
-        cui.create_enum_controls_ui_elements(controls_window)
-    #for entry in enum_control_list:
-    #    camc.get_control_name
-    
+		import camera_controls as camc
+		import controls_ui as cui
+		#enum_control_list, defaults = camc.get_modifiable_controls()
+	 
+		with dpg.window(tag="Controls window") as controls_window:
+				#cui.create_enum_controls_ui_elements(controls_window)
+				cui.create_controls_ui_for_camera(picam2, controls_window)		
+		#for entry in enum_control_list:
+		#		camc.get_control_name
+		
 
 #with dpg.window(tag="Controls window") as controls_window:
-#    controls_ui.add_camera_control_ui_element(controls_window)
+#		controls_ui.add_camera_control_ui_element(controls_window)
 
 # wait 10 frames for the fullscreen to be fully setup (a bit hacky)
 dpg.set_frame_callback(10, init_custom_data)
@@ -107,31 +108,31 @@ dpg.destroy_context()
 # sensor modes RPi HQ Cam
 """
 [{'bit_depth': 10,
-  'crop_limits': (696, 528, 2664, 1980),
-  'exposure_limits': (31, 2147483647, None),
-  'format': SRGGB10_CSI2P,
-  'fps': 120.05,
-  'size': (1332, 990),
-  'unpacked': 'SRGGB10'},
+	'crop_limits': (696, 528, 2664, 1980),
+	'exposure_limits': (31, 2147483647, None),
+	'format': SRGGB10_CSI2P,
+	'fps': 120.05,
+	'size': (1332, 990),
+	'unpacked': 'SRGGB10'},
  {'bit_depth': 12,
-  'crop_limits': (0, 440, 4056, 2160),
-  'exposure_limits': (60, 667244877, None),
-  'format': SRGGB12_CSI2P,
-  'fps': 50.03,
-  'size': (2028, 1080),
-  'unpacked': 'SRGGB12'},
+	'crop_limits': (0, 440, 4056, 2160),
+	'exposure_limits': (60, 667244877, None),
+	'format': SRGGB12_CSI2P,
+	'fps': 50.03,
+	'size': (2028, 1080),
+	'unpacked': 'SRGGB12'},
  {'bit_depth': 12,
-  'crop_limits': (0, 0, 4056, 3040),
-  'exposure_limits': (60, 674181621, None),
-  'format': SRGGB12_CSI2P,
-  'fps': 40.01,
-  'size': (2028, 1520),
-  'unpacked': 'SRGGB12'},
+	'crop_limits': (0, 0, 4056, 3040),
+	'exposure_limits': (60, 674181621, None),
+	'format': SRGGB12_CSI2P,
+	'fps': 40.01,
+	'size': (2028, 1520),
+	'unpacked': 'SRGGB12'},
  {'bit_depth': 12,
-  'crop_limits': (0, 0, 4056, 3040),
-  'exposure_limits': (114, 674191602, None),
-  'format': SRGGB12_CSI2P,
-  'fps': 10.0,
-  'size': (4056, 3040),
-  'unpacked': 'SRGGB12'}]
+	'crop_limits': (0, 0, 4056, 3040),
+	'exposure_limits': (114, 674191602, None),
+	'format': SRGGB12_CSI2P,
+	'fps': 10.0,
+	'size': (4056, 3040),
+	'unpacked': 'SRGGB12'}]
 """
