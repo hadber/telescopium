@@ -44,7 +44,7 @@ if not args.guionly:
 with dpg.texture_registry(show=False):
 	dpg.add_raw_texture(width=320, height=240, default_value=raw_data, format=dpg.mvFormat_Float_rgba, tag="Camera texture")
 
-with dpg.window(tag="Camera window"):
+with dpg.window(tag="Camera window") as cam_window:
 	dpg.add_image(texture_tag="Camera texture", tag="Camera image", show=False)
 	dpg.add_loading_indicator(tag="Loading", radius=30)
 
@@ -68,6 +68,20 @@ with dpg.theme() as global_theme:
 	with dpg.theme_component():
 		dpg.add_theme_style(dpg.mvStyleVar_WindowPadding, 0, 0, category=dpg.mvThemeCat_Core)
 dpg.bind_theme(global_theme)
+
+if not args.guionly:
+    import camera_controls as camc
+    import controls_ui as cui
+    enum_control_list, defaults = camc.get_modifiable_controls()
+   
+    with dpg.window(tag="Controls window") as controls_window:
+        cui.create_enum_controls_ui_elements(controls_window)
+    #for entry in enum_control_list:
+    #    camc.get_control_name
+    
+
+#with dpg.window(tag="Controls window") as controls_window:
+#    controls_ui.add_camera_control_ui_element(controls_window)
 
 # wait 10 frames for the fullscreen to be fully setup (a bit hacky)
 dpg.set_frame_callback(10, init_custom_data)

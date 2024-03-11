@@ -21,9 +21,26 @@ def get_modifiable_controls():
         # if this is a valid control
         if type(control) == control_class:
             if control_has_enum(control):
-                controls_with_enum.append(control)
+                controls_with_enum.append(control_as_string)
             else:
-                controls_with_defaults.append(control)
+                controls_with_defaults.append(control_as_string)
 
-    
     return controls_with_enum, controls_with_defaults
+
+def get_enum_options(some_control):
+    enum_name = some_control+"Enum"
+    out_list = []
+    if enum_name in get_available_controls():
+        enum_control = getattr(controls, enum_name)
+        enum_options_list = dir(enum_control)
+        _type = type(getattr(enum_control, enum_options_list[0]))
+       
+        # because we can't iterate through controls, we have to
+        # iterate through strings and grab the attribute
+        for option_name in enum_options_list:
+            option_val = getattr(enum_control, option_name)
+            if type(option_val) == _type:
+                out_list.append(option_name)
+            
+    return out_list
+    
