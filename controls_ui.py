@@ -12,10 +12,17 @@ def create_controls_ui_for_camera(camera, parent_window):
 
 	# values are as follows: [minimum, maximum, default]
 	for name, values in camera.camera_controls.items():
+		min_value, max_value, default_value = values
 		print(f"Creating UI element for: {name}")
 		control_type = camc.get_camera_control_type(name)
 
 		if control_type == camc.Type.ENUM:
-			create_enum_control_ui(name, parent_window, values[2])
+			create_enum_control_ui(name, parent_window, default_value)
 
-
+		elif control_type == camc.Type.BOOL:
+			pass
+		elif control_type == camc.Type.FLOAT:
+			print(min_value, max_value, default_value)
+			default_value = 0 if default_value == None else default_value
+			dpg.add_slider_float(label=name, user_data=control_type, parent=parent_window, 
+														default_value=float(default_value), clamped=True, min_value=float(min_value), max_value=float(max_value))
