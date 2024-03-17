@@ -63,23 +63,32 @@ def init_custom_data():
 	dpg.configure_item("Camera image", width=w, height=h, show=True)
 	dpg.delete_item("Loading")
 
+
+# Style
+
+
 # remove the border so that the camera feed is full screen
-with dpg.theme() as global_theme:
+with dpg.theme() as no_padding:
 	with dpg.theme_component():
 		dpg.add_theme_style(dpg.mvStyleVar_WindowPadding, 0, 0, category=dpg.mvThemeCat_Core)
-dpg.bind_theme(global_theme)
+dpg.bind_item_theme(cam_window, no_padding)
+#dpg.bind_theme(global_theme)
+
+# Increase font size, this will make things blurry
+# However, it is needed in order to be able to click
+# And properly see stuff on the tiny RPi screen
+# TODO: Add a new, larger font?
+dpg.set_global_font_scale(2)
+
+
+#Style end
 
 if not args.guionly:
-		import camera_controls as camc
-		import controls_ui as cui
-		#enum_control_list, defaults = camc.get_modifiable_controls()
+		import controls_ui as cam_ui
 	 
-		with dpg.window(tag="Controls window") as controls_window:
-				#cui.create_enum_controls_ui_elements(controls_window)
-				cui.create_controls_ui_for_camera(picam2, controls_window)		
-		#for entry in enum_control_list:
-		#		camc.get_control_name
-		
+		controls_window = dpg.window(tag="Controls window", label="Controls", width=450, height=600)
+		cam_ui.create_controls_ui_for_camera(picam2, controls_window)
+
 
 #with dpg.window(tag="Controls window") as controls_window:
 #		controls_ui.add_camera_control_ui_element(controls_window)
