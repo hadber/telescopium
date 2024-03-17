@@ -3,6 +3,7 @@ import camera_controls as cam_ctrl
 from libcamera import controls
 
 def apply_changes(sender, app_data, camera):
+	i = 0
 	print(f"sender: {sender}, \t app_data: {app_data}, \t user_data: {camera}")
 	control_object = dict()
 	for name in camera.camera_controls:
@@ -26,8 +27,11 @@ def apply_changes(sender, app_data, camera):
 			# This isn't implemented yet, so we simply pass.
 			print(f"{name} not implemented yet, skipping ... Exception: {e}")
 	
+		if i > 4:
+			break
+		i += 1
+#	print(control_object)
 	camera.set_controls(control_object)
-	print(control_object)
 
 def create_controls_ui_for_camera(camera, parent_window):
 

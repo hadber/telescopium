@@ -8,7 +8,8 @@ class Type(Enum):
 	FLOAT = 2	
 	INT = 3
 	RECT = 4
-	NONE = 5
+	TUPLE = 5
+	NONE = 6
 
 
 def get_controls_dir():
@@ -63,6 +64,10 @@ def get_selected_enum_option(some_control, enum_option):
 
 
 def get_camera_control_type(name):
+
+	# exceptions: these are tuples and its not indicated anywhere
+	if name in ["FrameDurationLimits", "ColourGains"]:
+		return Type.TUPLE
 
 	if control_has_enum(name):
 		return Type.ENUM
