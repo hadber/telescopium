@@ -89,10 +89,6 @@ if not args.guionly:
 		controls_window = dpg.window(tag="Controls window", label="Controls", width=450, height=600)
 		cam_ui.create_controls_ui_for_camera(picam2, controls_window)
 
-
-#with dpg.window(tag="Controls window") as controls_window:
-#		controls_ui.add_camera_control_ui_element(controls_window)
-
 # wait 10 frames for the fullscreen to be fully setup (a bit hacky)
 dpg.set_frame_callback(10, init_custom_data)
 
@@ -110,7 +106,7 @@ dpg.destroy_context()
 # TODO:
 # - view camera real-time x
 # - take a photo
-# - modify camera settings (iso, etc)
+# - modify camera settings (iso, etc) x
 # - save camera presets
 # - view taken photos
 

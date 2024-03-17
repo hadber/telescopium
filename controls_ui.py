@@ -2,8 +2,6 @@ import dearpygui.dearpygui as dpg
 import camera_controls as cam_ctrl
 from libcamera import controls
 
-enum_list, defaults_list = cam_ctrl.get_all_modifiable_controls()
-
 def apply_changes(sender, app_data, camera):
 	print(f"sender: {sender}, \t app_data: {app_data}, \t user_data: {camera}")
 	control_object = dict()
@@ -17,21 +15,18 @@ def apply_changes(sender, app_data, camera):
 			print(control_type, item_value)
 			
 			if control_type == cam_ctrl.Type.ENUM:
-				control_object[name] = cam_ctrl.get_selected_enum_option(name, item_value)
-				print(control_object)
-			elif control_type == cam_ctrl.Type.BOOL:
-				pass
-
-			elif control_type == cam_ctrl.Type.FLOAT:
-				pass
+				new_value = cam_ctrl.get_selected_enum_option(name, item_value)
 				
-			elif control_type == cam_ctrl.Type.INT:
-				pass
+			elif control_type in [cam_ctrl.Type.BOOL, cam_ctrl.Type.FLOAT, cam_ctrl.Type.INT]:
+				new_value = item_value 
+	
+			control_object[name] = new_value
 
 		except Exception as e:
 			# This isn't implemented yet, so we simply pass.
 			print(f"{name} not implemented yet, skipping ... Exception: {e}")
-		
+	
+	camera.set_controls(control_object)
 	print(control_object)
 
 def create_controls_ui_for_camera(camera, parent_window):
