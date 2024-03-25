@@ -31,3 +31,8 @@ It should, eventually, be supported on a pi out of the box - but, until then, pl
 Make sure of the following two things: 
 - in raspi-config, camera legacy support is disabled
 - also in raspi-config, under advanced options -> GL Driver that you have G1 Legacy enabled.
+
+Also, in order to use the "still" configuration with the HQ camera, you will need to increase the cma size in /boot/config.txt, relevant info here:
+https://github.com/raspberrypi/picamera2/issues/422
+
+It will only run by doing: `LIBGL_ALWAYS_SOFTWARE=true python main.py`

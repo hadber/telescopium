@@ -75,7 +75,28 @@ def create_controls_ui_for_camera(camera, parent_window):
 																default_value=int(default_value), clamped=True, min_value=int(min_value), max_value=int(max_value),
 																source=int_source)
 
+
+#		dpg.add_separator()
+#		dpg.add_text("Camera modes")
+		# available modes
+		# target mode
+#		for mode, i in enumerate(camera.sensor_modes):
+#			dpg.add_text(f"Mode {i}")
+#			mode_text = ""
+#			for name, value in mode:
+#				mode_text += f"{name}: {value}\n"
+#			dpg.add_text(mode_text)
+#			dpg.add_separator()
+		
+	
+
 		# TODO: Make button larger!
 		dpg.add_separator()	
 		dpg.add_button(label="Apply changes", callback=apply_changes, user_data=camera)
-# add a button at the bottom that will callback and set all the values
+		
+		
+
+		
+
+
+
