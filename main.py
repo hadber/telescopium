@@ -3,6 +3,7 @@ import dearpygui.dearpygui as dpg
 import controls_ui as cam_ui
 from picamera2 import Picamera2
 from cv2 import cvtColor, COLOR_YUV420p2RGBA
+from time import strftime
 #from picamera2.converters import YUV420_to_RGB
 
 # TODO:
@@ -88,6 +89,13 @@ assert(not picam2 is None)
 # Camera control window and other camera-related UI
 controls_window = dpg.window(tag="Controls window", label="Controls", width=450, height=600)
 cam_ui.create_controls_ui_for_camera(picam2, controls_window)
+
+def take_a_picture():
+	filename = strftime("images/" + "%Y%m%d-%H%M%S") + '.png'
+	picam2.capture_file(filename, format="png")
+
+with dpg.window(tag="Capture window", label="Capture") as capture_window:
+	dpg.add_button(label="Take a picture", callback=take_a_picture)
 
 # wait 10 frames for the fullscreen to be fully setup before grabbing size (a bit hacky)
 dpg.set_frame_callback(10, init_custom_data)
